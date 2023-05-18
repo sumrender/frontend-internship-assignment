@@ -1,23 +1,100 @@
 <div class="header">
-  <div class="tw-text-24-px tw-font-600">Open Books Library</div>
+  <div class="logo">Open Books Library</div>
   <div class="search-button">
-    <mat-icon class="tw-mt-16-px" aria-label="Search Icon">search</mat-icon>
     <input
       [formControl]="bookSearch"
       name="searchKey"
       type="text"
-      placeholder="Search Books"
-      class="tw-border-0 tw-bg-inherit"
+      placeholder="Search Books..."
+      class="search-input"
+      (keyup.enter)="searchBook()"
+    />
+    <mat-icon
+      class="clear-icon"
+      aria-label="Clear Search Icon"
+      (click)="clearSearch()"
+      *ngIf="bookSearch.value.length > 0"
+      >close</mat-icon
+    >
+    <mat-icon
+      class="search-icon"
+      aria-label="Search Icon"
+      (click)="searchBook()"
+      >search</mat-icon
     >
   </div>
 </div>
-<div class="tw-flex tw-flex-row tw-m-24-px">
+<div class="tw-flex tw-items-center tw-flex-row tw-m-24-px">
   <section class="trending-subjects">
-    <div class="tw-font-600 tw-text-24-px">Trending Subjects</div>
-    <ul class="tw-list-none tw-pl-0">
-      <li class="tw-text-16-px tw-cursor-pointer tw-p-12-px" *ngFor="let subject of trendingSubjects" routerLink="/trending-subject/{{ subject.name }}">
+    <div class="home-button">
+      <mat-icon class="home-icon" aria-label="Home Icon">home</mat-icon>
+      <div class="home-text">Home</div>
+    </div>
+    <ul class="tw-list-none tw-pl-0 trending-list">
+      <li
+        class="tw-text-16-px tw-cursor-pointer tw-p-12-px subject"
+        *ngFor="let subject of trendingSubjects"
+        routerLink="/trending-subject/{{ subject.name }}"
+      >
         {{ subject.name }}
       </li>
     </ul>
   </section>
+  <section *ngIf="isLoading" class="loader">
+    <div class="loader-circle"></div>
+  </section>
+  <div
+    *ngIf="!isLoading && !errorMessage && searchResults.length === 0"
+    class="tw-w-full tw-text-center tw-mt-8"
+  >
+    <i>Search book by title or author . . .</i>
+  </div>
+  <section
+    class="search-results"
+    *ngIf="!isLoading && searchResults.length > 0 && !errorMessage"
+  >
+    <front-end-internship-assignment-table-view
+      [searchResults]="searchResults"
+      [searchQuery]="bookSearch.value"
+    ></front-end-internship-assignment-table-view>
+    <div class="pagination">
+      <button
+        class="pagination-btn"
+        (click)="goToPage(1)"
+        [disabled]="currentPage === 1"
+      >
+        First
+      </button>
+      <button
+        class="pagination-btn"
+        (click)="goToPage(currentPage - 1)"
+        [disabled]="currentPage === 1"
+      >
+        Prev
+      </button>
+
+      <span class="pagination-info"
+        >Page {{ currentPage }} of {{ totalPages }}</span
+      >
+
+      <button
+        class="pagination-btn"
+        (click)="goToPage(currentPage + 1)"
+        [disabled]="currentPage === totalPages"
+      >
+        Next
+      </button>
+      <button
+        class="pagination-btn"
+        (click)="goToPage(totalPages)"
+        [disabled]="currentPage === totalPages"
+      >
+        Last
+      </button>
+    </div>
+    
+  </section>
+  <h3 *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </h3>
 </div>

@@ -1,0 +1,47 @@
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  z-index: 999;
+}
+
+.loader-circle {
+  width: 50px;
+  height: 50px;
+  border: 3px solid #ccc;
+  border-top-color: #3498db;
+  border-radius: 50%;
+  animation: loader-rotate 1s linear infinite;
+}
+
+@keyframes loader-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.nav-link {
+  margin: 20px;
+  width: 10vw;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.nav-link p {
+  font-weight: bold;
+  font-size: large;
+  padding-top: 2px;
+}
+
+.nav-link:hover {
+  color: #555;
+}
+
+.trending-subjects-main {
+  margin: auto;
+}
+

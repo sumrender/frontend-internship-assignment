@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Book } from 'src/app/core/models/book-response.model';
+import { Book, Doc } from 'src/app/core/models/book-response.model';
 
 @Component({
   selector: 'front-end-internship-assignment-table-view',
@@ -8,5 +8,8 @@ import { Book } from 'src/app/core/models/book-response.model';
 })
 export class TableViewComponent {
   @Input() booksList: Book[] = [];
-  @Input() subjectName: string = '';
+  @Input() subjectName = '';
+
+  @Input() searchResults: Doc[] = [];
+  @Input() searchQuery = '';
 }

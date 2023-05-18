@@ -1,5 +1,31 @@
 # Fyle Frontend Challenge
 
+I have successfully implemented the following features in the application:
+
+1. Search by book title or author name:
+  I created a separate service called bookService, which is handling all such functions like, get search results, or
+  get books for trending subjects
+
+2. Tabulated results:
+  The search results and trending subjects books,
+  are shown to the user in a tabulated manner,
+  reusing the shared table component
+
+3. Paginated results: The search results are paginated, allowing users to view a limited number of results per page and navigate through the pages to view more results.
+
+4. Clear search text: Users can easily clear the search text input field to reset the search and start a new search query.
+
+5. Handling edge cases related to API calls: 
+  The edge cases like, no results found (404) and
+  connection error have been taken care of.
+
+6. Loaders while fetching data: Loaders have been implemented to allow for a smooth user experience
+
+7. Back button: A Back button is added to the Trending Subjects page, allowing users to easily navigate back to the home page.
+
+8. Caching API responses: Caching service has been created, to cache both search responses and trending book responses, to improve performance.
+
+
 ## Who is this for?
 
 This challenge is meant for candidates who wish to intern at Fyle and work with our engineering team. The candidate should be able to commit to at least 6 months of dedicated time for internship.

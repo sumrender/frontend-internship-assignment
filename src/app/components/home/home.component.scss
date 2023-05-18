@@ -1,31 +1,135 @@
 .header {
   @apply
   tw-flex
-  tw-flex-row
+  tw-flex-col
   tw-justify-between
   tw-items-center
-  tw-rounded-4-px
   tw-p-12-px
-  tw-m-24-px;
+  md:tw-flex-row;
   background: linear-gradient(146deg, #e1eeff 19.67%, #ffe4fb 127.56%);
+  background-color: #fff;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  flex-grow: 1;
 }
 
 .search-button {
-  @apply
-  tw-border 
-  tw-border-solid 
-  tw-border-dark-border
-  tw-rounded-4-px
-  tw-flex
-  tw-justify-center
-  tw-h-60-px
-  tw-w-200-px
+  margin-right: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+
+.search-input {
+  border: none;
+  background-color: transparent;
+  padding: 8px;
+  font-size: 14px;
+  outline: none;
+  width: 200px;
+}
+
+.search-icon {
+  cursor: pointer;
+  color: #333;
+  font-size: 15px;
+}
+
+.mat-icon{
+  height: auto !important;
+  width: auto !important;
+}
+
+.clear-icon {
+  cursor: pointer;
+  color: #333;
+  font-size: 15px;
+  margin-right: 3px;
+}
+
+.clear-icon:hover {
+  color: #007bff; 
+}
+
+.topbook{
+  display: none;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  width: 80vw;
+  z-index: 999;
 }
 
 .trending-subjects {
-  @apply
-  tw-bg-table-header-bg
-  tw-p-12-px
-  tw-rounded-4-px
-  tw-shadow-lg
+  background:linear-gradient(146deg, #7222e3 19.67%, #ffe4fb 127.56%);
+  background-color: #8143d9;
+  width: 200px; 
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  color: white;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 86vh;
+  overflow-y: hidden;
+}
+
+.home-button {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  background-color: #d78dff; 
+  padding: 8px;
+  border-radius: 4px; 
+  width: 100%;
+  cursor: pointer;
+
+  &:hover {
+    color: black;
+  }
+}
+
+.subject {
+  &:hover {
+    color: black;
+  }
+}
+
+.home-icon {
+  font-size: 24px;
+  margin-right: 8px;
+}
+
+.home-text {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+
+.loader-circle {
+  width: 50px;
+  height: 50px;
+  border: 3px solid #ccc;
+  border-top-color: #3498db;
+  border-radius: 50%;
+  animation: loader-rotate 1s linear infinite;
+}
+
+@keyframes loader-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.search-results {
+  margin: auto;
 }

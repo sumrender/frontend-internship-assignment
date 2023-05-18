@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { SubjectsService } from '../../core/services/subjects.service';
-import { Book } from 'src/app/core/models/book-response.model';
+import { BooksService } from '../../core/services/books.service';
+import { Book, BookResponse } from 'src/app/core/models/book-response.model';
+import { TrendingSubject } from 'src/app/core/models/misc';
 
 @Component({
   selector: 'front-end-internship-assignment-trending-subjects',
@@ -9,32 +10,61 @@ import { Book } from 'src/app/core/models/book-response.model';
   styleUrls: ['./trending-subjects.component.scss'],
 })
 export class TrendingSubjectsComponent implements OnInit {
-
-  isLoading: boolean = true;
-
-  subjectName: string = '';
-
+  isLoading = true;
+  subjectName = '';
+  errorMessage = '';
+  currentPage = 1;
+  totalPages = 1;
   allBooks: Book[] = [];
+
+  trendingSubjects: Array<TrendingSubject> = [
+    { name: 'JavaScript' },
+    { name: 'CSS' },
+    { name: 'HTML' },
+    { name: 'Harry Potter' },
+    { name: 'Crypto' },
+  ];
 
   constructor(
     private route: ActivatedRoute,
-    private subjectsService: SubjectsService
+    private booksService: BooksService
   ) {}
-
-  getAllBooks() {
-    this.subjectsService.getAllBooks(this.subjectName).subscribe((data) => {
-      this.allBooks = data?.works;
-      // this.subjectsArray = data;
-      this.isLoading = false;
-    });
-  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.subjectName = params.get('name') || '';
-      this.isLoading = true;
       this.getAllBooks();
     });
   }
 
+  getAllBooks() {
+    this.errorMessage = '';
+    this.isLoading = true;
+    this.booksService
+      .getAllBooks(this.subjectName, this.currentPage)
+      .subscribe(
+        (bookResponse: BookResponse) => {
+        this.allBooks = bookResponse.works;
+        this.totalPages =
+          bookResponse.work_count % 10
+            ? Math.trunc(bookResponse.work_count / 10) + 1
+            : bookResponse.work_count / 10;
+        this.isLoading = false;
+      },
+      (err) => {
+        if (err.status === 404) {
+          this.errorMessage = 'Resource not found';
+        }
+        this.errorMessage =
+          'Request could not be completed! Please try again later.';
+        this.isLoading = false;
+        console.log(err);
+      }
+      );
+  }
+
+  goToPage(page: number): void {
+    this.currentPage = page;
+    this.getAllBooks();
+  }
 }
